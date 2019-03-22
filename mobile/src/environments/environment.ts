@@ -6,7 +6,7 @@ export const environment = {
   production: false
 };
 
-export const API_URL = 'http://10.16.0.106:3000';
+export const API_URL = 'http://10.16.0.117:3000';
 
 /*
  * For easier debugging in development mode, you can import the following file

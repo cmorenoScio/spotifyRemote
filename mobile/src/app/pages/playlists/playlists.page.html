@@ -8,7 +8,7 @@
 
 <ion-content color="dark">
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="success">
+    <ion-fab-button (click)="presentAlertPrompt()" color="success">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -21,14 +21,16 @@
         </ion-col>
       </ion-row>
     </div>
-	
     <ion-list *ngIf="playlists">
 
       <ion-list-header>
         <ion-searchbar placeholder="Filtro" color="dark" animated [(ngModel)]="searchTerm"
           (ionChange)="filterPlaylists()" debounce="200"></ion-searchbar>
       </ion-list-header>
-      <ion-item *ngFor="let playlist of playlists" color="dark" routerLink="/playlist/2/songs">
+      <ion-item *ngFor="let playlist of playlists" color="dark" routerLink="/playlist/{{playlist.id}}/songs">
+
+
+
         <ion-thumbnail slot="start">
           <img [src]="playlist.images.length > 0? playlist.images[0].url: 'https://dummyimage.com/100x100/078f12/fff&text='+playlist.name.toUpperCase().split('')[0]">
         </ion-thumbnail>

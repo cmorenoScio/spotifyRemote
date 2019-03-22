@@ -57,14 +57,45 @@ export class ProfilePage implements OnInit{
   }
 
   skipBack() {
+    this.profileService.previousTrack()
+      .subscribe((data) => {
+        this.isPaused = false;
+        this.isPlaying = true;
+        this.getCurrentSong();
+      }, (err) => {
+        console.error(err +"holi");
+      });
 
   }
 
   playPause() {
-
+    if (this.isPaused) {
+      this.profileService.playCurrentSong()
+        .subscribe((data) => {
+          this.isPaused = false;
+          this.isPlaying = true;
+        }, (err) => {
+          console.error(err);
+        });
+    } else {
+      this.profileService.pauseCurrentSong()
+        .subscribe((data) => {
+          this.isPaused = true;
+          this.isPlaying = false;
+        }, (err) => {
+          console.error(err);
+        });
+    }
   }
 
   skipForward() {
-
+    this.profileService.nextTrack()
+      .subscribe((data) => {
+        this.isPaused = false;
+        this.isPlaying = true;
+        this.getCurrentSong();
+      }, (err) => {
+        console.error(err);
+      });
   }
 }

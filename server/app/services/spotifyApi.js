@@ -2,9 +2,9 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const request = require('superagent');
 
 const spotifyApi = new SpotifyWebApi({
-    refreshToken: 'YOUR DATA',
-    clientId: 'YOUR DATA',
-    clientSecret: 'YOUR DATA'
+    refreshToken: 'YOUR_DATA',
+    clientId: 'YOUR_DATA',
+    clientSecret: 'YOUR_DATA'
 });
 
 module.exports = () => {
@@ -16,7 +16,12 @@ module.exports = () => {
         addPlaylist: addPlaylist,
         addPlaylistTrack: addPlaylistTrack,
         removePlaylistTrack: removePlaylistTrack,
-        getToken: getToken
+        getToken: getToken,
+        getPlaylistInfo: getPlaylistInfo,
+        playSong: playSong,
+        pauseSong: pauseSong,
+        nextTrack: nextTrack,
+        previousTrack: previousTrack
     };
 };
 
@@ -42,6 +47,29 @@ async function getProfileCurrentSong() {
     return data.body || {};
 }
 
+async function playSong() {
+    await refreshAccessToken();
+    const data = await spotifyApi.play();
+    return data.body || {};
+}
+
+async function pauseSong() {
+    await refreshAccessToken();
+    const data = await spotifyApi.pause();
+    return data.body || {};
+}
+
+async function nextTrack() {
+    await refreshAccessToken();
+    const data = await spotifyApi.skipToNext();
+    return data.body || {};
+}
+
+async function previousTrack() {
+    await refreshAccessToken();
+    const data = await spotifyApi.skipToPrevious();
+    return data.body || {};
+}
 async function profilePlaylists() {
     await refreshAccessToken();
     const data = await spotifyApi.getUserPlaylists();
@@ -69,6 +97,11 @@ async function addPlaylistTrack(playlistId, tracks) {
 async function removePlaylistTrack(playlistId, tracks) {
     await refreshAccessToken();
     const data = await spotifyApi.removeTracksFromPlaylist(playlistId, tracks);
+    return data.body || {};
+}
+async function getPlaylistInfo(playlistId) {
+    await refreshAccessToken();
+    const data = await spotifyApi.getPlaylist(playlistId);
     return data.body || {};
 }
 

@@ -23,7 +23,24 @@ module.exports = (app) => {
         addPlaylist: async (name) => {
             return await services.spotifyApi.addPlaylist(name);
         },
+        playlistInfo: async (playlistId) => {
+            return await services.spotifyApi.getPlaylistInfo(playlistId);
+        },
+        play: async () => {
+            return await services.spotifyApi.playSong();
+        },
 
+        pause: async () => {
+            return await services.spotifyApi.pauseSong();
+        },
+
+        nextTrack: async () => {
+            return await services.spotifyApi.nextTrack();
+        },
+
+        previousTrack: async () => {
+            return await services.spotifyApi.previousTrack();
+        },
         token: async(clientId, clientSecret, code, urlRedirect) => {
             return await services.spotifyApi.getToken(clientId, clientSecret, code, urlRedirect);
         }
